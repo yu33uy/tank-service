@@ -18,6 +18,13 @@ public interface DeptService {
     void add(AddDeptParam param);
 
     /**
+     * 删除机构
+     *
+     * @param id 机构id
+     */
+    void delete(Long id);
+
+    /**
      * 查询部门树
      *
      * @return 部门树

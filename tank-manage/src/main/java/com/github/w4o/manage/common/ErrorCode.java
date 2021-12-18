@@ -26,6 +26,7 @@ public enum ErrorCode implements CommonError {
      * 验证码错误
      */
     E1003(1003, "验证码错误"),
+    E1004(1004, "存在子机构，不能删除此机构"),
     /**
      * 未知错误
      */

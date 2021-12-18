@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author frank
@@ -49,9 +50,10 @@ public class DeptController {
     /**
      * 删除机构
      */
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     @ApiOperation(value = "删除机构")
-    public CommonResult<?> delete() {
+    public CommonResult<?> delete(@RequestParam("id") @NotNull Long id) {
+        deptService.delete(id);
         return CommonResult.success();
     }
 

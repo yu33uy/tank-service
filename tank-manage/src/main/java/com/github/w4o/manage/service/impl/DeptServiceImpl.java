@@ -2,8 +2,11 @@ package com.github.w4o.manage.service.impl;
 
 import cn.hutool.core.lang.tree.TreeNodeConfig;
 import cn.hutool.core.lang.tree.TreeUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.w4o.core.entity.SysDeptEntity;
+import com.github.w4o.core.exception.CustomException;
+import com.github.w4o.manage.common.ErrorCode;
 import com.github.w4o.manage.dto.param.AddDeptParam;
 import com.github.w4o.manage.mapper.SysDeptMapper;
 import com.github.w4o.manage.service.DeptService;
@@ -29,6 +32,15 @@ public class DeptServiceImpl implements DeptService {
         SysDeptEntity sysDeptEntity = new SysDeptEntity();
         BeanUtils.copyProperties(param, sysDeptEntity);
         sysDeptMapper.insert(sysDeptEntity);
+    }
+
+    @Override
+    public void delete(Long id) {
+        Long count = sysDeptMapper.selectCount(new LambdaQueryWrapper<SysDeptEntity>().eq(SysDeptEntity::getParentId, id));
+        if (count.compareTo(0L) > 0) {
+            throw new CustomException(ErrorCode.E1004);
+        }
+        sysDeptMapper.deleteById(id);
     }
 
     @Override
