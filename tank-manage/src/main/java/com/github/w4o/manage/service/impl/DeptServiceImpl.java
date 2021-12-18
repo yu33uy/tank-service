@@ -41,10 +41,12 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public void delete(Long id) {
+        // 判断是否存在下级机构
         Long deptCount = sysDeptMapper.selectCount(new LambdaQueryWrapper<SysDeptEntity>().eq(SysDeptEntity::getParentId, id));
         if (deptCount.compareTo(0L) > 0) {
             throw new CustomException(ErrorCode.E1004);
         }
+        // 判断机构下是否存在用户
         Long userCount = sysUserMapper.selectCount(new LambdaQueryWrapper<SysUserEntity>().eq(SysUserEntity::getDeptId, id));
         if (userCount.compareTo(0L) > 0) {
             throw new CustomException(ErrorCode.E1005);
@@ -55,6 +57,7 @@ public class DeptServiceImpl implements DeptService {
     @Override
     public void update(Long id, ModifyDeptParam param) {
         SysDeptEntity queryEntity = sysDeptMapper.selectById(id);
+        // 判断数据是否存在
         if (queryEntity == null) {
             throw new CustomException(ErrorCode.E1001);
         }
