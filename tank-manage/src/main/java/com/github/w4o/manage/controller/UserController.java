@@ -1,6 +1,7 @@
 package com.github.w4o.manage.controller;
 
 import com.github.w4o.core.base.CommonResult;
+import com.github.w4o.manage.dto.param.AddUserParam;
 import com.github.w4o.manage.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -32,8 +34,9 @@ public class UserController {
      * 添加用户
      */
     @PostMapping("/add")
-    @ApiOperation(value = "添加用户", notes = "")
-    public CommonResult<?> add() {
+    @ApiOperation(value = "添加用户")
+    public CommonResult<?> add(@RequestBody @Valid AddUserParam param) {
+        userService.add(param);
         return CommonResult.success();
     }
 

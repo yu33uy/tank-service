@@ -1,10 +1,12 @@
 package com.github.w4o.manage.dto.param;
 
+import com.github.w4o.core.constant.RegEx;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  * @author frank
@@ -35,12 +37,14 @@ public class AddUserParam {
      * 邮箱
      */
     @ApiModelProperty("邮箱")
+    @Pattern(regexp = RegEx.E_MAIL)
     private String email;
 
     /**
      * 手机号
      */
     @ApiModelProperty("手机号")
+    @Pattern(regexp = RegEx.PHONE_NUMBER)
     private String mobile;
 
     /**
