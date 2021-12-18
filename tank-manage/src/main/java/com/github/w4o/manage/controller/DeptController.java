@@ -1,8 +1,8 @@
 package com.github.w4o.manage.controller;
 
 import com.github.w4o.core.base.CommonResult;
-import com.github.w4o.manage.service.DeptService;
 import com.github.w4o.manage.dto.param.AddDeptParam;
+import com.github.w4o.manage.service.DeptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -61,6 +61,6 @@ public class DeptController {
     @GetMapping("/findTree")
     @ApiOperation(value = "查询机构树")
     public CommonResult<?> findTree() {
-        return CommonResult.success();
+        return CommonResult.success(deptService.findTree());
     }
 }
