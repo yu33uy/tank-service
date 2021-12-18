@@ -41,6 +41,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void delete(Long id) {
+        sysUserMapper.deleteById(id);
+    }
+
+    @Override
     public Page<Map<String, Object>> getPageList(long pageNo, long pageSize) {
         return sysUserMapper.getPageList(new Page<>(pageNo, pageSize));
     }

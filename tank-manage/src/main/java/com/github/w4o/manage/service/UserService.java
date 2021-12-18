@@ -19,6 +19,13 @@ public interface UserService {
     void add(AddUserParam param);
 
     /**
+     * 删除用户
+     *
+     * @param id 用户id
+     */
+    void delete(Long id);
+
+    /**
      * 获取分页列表
      *
      * @param pageNo   页码

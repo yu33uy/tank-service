@@ -52,9 +52,10 @@ public class UserController {
     /**
      * 删除用户
      */
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     @ApiOperation(value = "删除用户")
-    public CommonResult<?> delete() {
+    public CommonResult<?> delete(@RequestParam("id") @NotNull Long id) {
+
         return CommonResult.success();
     }
 
