@@ -60,7 +60,7 @@ public class JwtUtils {
     }
 
     public String getUsernameFromToken(String token) {
-        return getClaimsFromToken(token).get("CLAIM_KEY_USERNAME").asString();
+        return getClaimsFromToken(token).get(CLAIM_KEY_USERNAME).asString();
     }
 
 

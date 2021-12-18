@@ -19,7 +19,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 @EnableOpenApi
 public class SwaggerConfig {
 
-    @Value("${tank.core.version}")
+    @Value("${tank.version}")
     private String version;
 
     @Bean

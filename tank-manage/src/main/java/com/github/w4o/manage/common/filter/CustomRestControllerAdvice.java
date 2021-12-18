@@ -1,9 +1,9 @@
-package com.github.w4o.core.filter;
+package com.github.w4o.manage.common.filter;
 
 import com.github.w4o.core.base.BaseErrorCode;
 import com.github.w4o.core.base.CommonResult;
-import com.github.w4o.core.config.CoreConfig;
 import com.github.w4o.core.exception.CustomException;
+import com.github.w4o.manage.common.config.TankConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import java.util.Arrays;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomRestControllerAdvice implements ResponseBodyAdvice<Object> {
 
-    private final CoreConfig coreConfig;
+    private final TankConfig tankConfig;
 
     @Value("${spring.profiles.active}")
     private String active;
@@ -78,7 +78,7 @@ public class CustomRestControllerAdvice implements ResponseBodyAdvice<Object> {
                                   ServerHttpRequest serverHttpRequest,
                                   ServerHttpResponse serverHttpResponse) {
         if (body instanceof CommonResult<?> commonResult) {
-            commonResult.setVersion(coreConfig.getVersion());
+            commonResult.setVersion(tankConfig.getVersion());
             return commonResult;
         }
         return body;
