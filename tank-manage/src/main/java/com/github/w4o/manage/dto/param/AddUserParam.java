@@ -22,6 +22,13 @@ public class AddUserParam {
     private String username;
 
     /**
+     * 用户密码
+     */
+    @ApiModelProperty("用户密码")
+    @NotBlank
+    private String password;
+
+    /**
      * 昵称
      */
     @ApiModelProperty("昵称")
