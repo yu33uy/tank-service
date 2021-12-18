@@ -25,7 +25,7 @@
         <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
         <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
         <freemarker.version>2.3.29</freemarker.version>
-        <jjwt.version>0.9.1</jjwt.version>
+        <java-jwt.version>3.18.2</java-jwt.version>
     </properties>
 
     <dependencyManagement>
@@ -66,9 +66,9 @@
                 <version>${freemarker.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jjwt.version}</version>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${java-jwt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
