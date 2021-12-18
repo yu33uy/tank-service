@@ -2,6 +2,7 @@ package com.github.w4o.manage.controller;
 
 import com.github.w4o.core.base.CommonResult;
 import com.github.w4o.manage.dto.param.AddUserParam;
+import com.github.w4o.manage.dto.param.ModifyUserParam;
 import com.github.w4o.manage.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,9 +44,11 @@ public class UserController {
     /**
      * 修改用户信息
      */
-    @PostMapping("/modify")
+    @PutMapping("/modify")
     @ApiOperation(value = "修改用户")
-    public CommonResult<?> modify() {
+    public CommonResult<?> modify(@RequestParam("id") @NotNull Long id,
+                                  @RequestBody @Valid ModifyUserParam param) {
+        userService.update(id, param);
         return CommonResult.success();
     }
 
@@ -55,7 +58,7 @@ public class UserController {
     @DeleteMapping("/delete")
     @ApiOperation(value = "删除用户")
     public CommonResult<?> delete(@RequestParam("id") @NotNull Long id) {
-
+        userService.delete(id);
         return CommonResult.success();
     }
 

@@ -2,6 +2,7 @@ package com.github.w4o.manage.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.w4o.manage.dto.param.AddUserParam;
+import com.github.w4o.manage.dto.param.ModifyUserParam;
 
 import java.util.Map;
 
@@ -24,6 +25,14 @@ public interface UserService {
      * @param id 用户id
      */
     void delete(Long id);
+
+    /**
+     * 修改用户
+     *
+     * @param id    用户id
+     * @param param 请求参数
+     */
+    void update(Long id, ModifyUserParam param);
 
     /**
      * 获取分页列表

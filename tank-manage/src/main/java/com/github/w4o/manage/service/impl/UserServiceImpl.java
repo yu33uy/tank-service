@@ -1,11 +1,13 @@
 package com.github.w4o.manage.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.w4o.core.entity.SysUserEntity;
 import com.github.w4o.core.exception.CustomException;
 import com.github.w4o.manage.common.ErrorCode;
 import com.github.w4o.manage.dto.param.AddUserParam;
+import com.github.w4o.manage.dto.param.ModifyUserParam;
 import com.github.w4o.manage.mapper.SysUserMapper;
 import com.github.w4o.manage.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +45,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         sysUserMapper.deleteById(id);
+    }
+
+    @Override
+    public void update(Long id, ModifyUserParam param) {
+        SysUserEntity queryEntity = sysUserMapper.selectById(id);
+        // 判断数据是否存在
+        if (queryEntity == null) {
+            throw new CustomException(ErrorCode.E1001);
+        }
+        BeanUtil.copyProperties(param, queryEntity);
+        sysUserMapper.updateById(queryEntity);
     }
 
     @Override
