@@ -2,6 +2,7 @@ package com.github.w4o.manage.controller;
 
 import com.github.w4o.core.base.CommonResult;
 import com.github.w4o.manage.dto.param.AddDeptParam;
+import com.github.w4o.manage.dto.param.ModifyDeptParam;
 import com.github.w4o.manage.service.DeptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,9 +42,11 @@ public class DeptController {
     /**
      * 修改机构信息
      */
-    @PostMapping("/modify")
+    @PutMapping("/modify")
     @ApiOperation(value = "修改机构")
-    public CommonResult<?> modify() {
+    public CommonResult<?> modify(@RequestParam("id") @NotNull Long id,
+                                  @RequestBody @Valid ModifyDeptParam param) {
+        deptService.update(id, param);
         return CommonResult.success();
     }
 

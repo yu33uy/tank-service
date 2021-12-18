@@ -1,6 +1,7 @@
 package com.github.w4o.manage.service;
 
 import com.github.w4o.manage.dto.param.AddDeptParam;
+import com.github.w4o.manage.dto.param.ModifyDeptParam;
 
 import java.util.List;
 
@@ -23,6 +24,14 @@ public interface DeptService {
      * @param id 机构id
      */
     void delete(Long id);
+
+    /**
+     * 修改机构信息
+     *
+     * @param id    机构id
+     * @param param 请求参数
+     */
+    void update(Long id, ModifyDeptParam param);
 
     /**
      * 查询部门树

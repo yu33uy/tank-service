@@ -8,6 +8,7 @@ import com.github.w4o.core.entity.SysDeptEntity;
 import com.github.w4o.core.exception.CustomException;
 import com.github.w4o.manage.common.ErrorCode;
 import com.github.w4o.manage.dto.param.AddDeptParam;
+import com.github.w4o.manage.dto.param.ModifyDeptParam;
 import com.github.w4o.manage.mapper.SysDeptMapper;
 import com.github.w4o.manage.service.DeptService;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,17 @@ public class DeptServiceImpl implements DeptService {
             throw new CustomException(ErrorCode.E1004);
         }
         sysDeptMapper.deleteById(id);
+    }
+
+    @Override
+    public void update(Long id, ModifyDeptParam param) {
+        SysDeptEntity queryEntity = sysDeptMapper.selectById(id);
+        if (queryEntity == null) {
+            throw new CustomException(ErrorCode.E1001);
+        }
+        queryEntity.setDeptName(param.getDeptName());
+        queryEntity.setSort(param.getSort());
+        sysDeptMapper.updateById(queryEntity);
     }
 
     @Override
