@@ -26,7 +26,7 @@ public class AddMenuParam {
      * 父菜单ID，一级菜单为0
      */
     @ApiModelProperty("父菜单ID")
-    @NotBlank
+    @NotNull
     private Long parentId = NumberUtils.LONG_ZERO;
 
     /**

@@ -59,6 +59,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void disable(Long id) {
+        SysUserEntity queryEntity = sysUserMapper.selectById(id);
+        // 判断数据是否存在
+        if (queryEntity == null) {
+            throw new CustomException(ErrorCode.E1001);
+        }
+        queryEntity.setStatus(0);
+        sysUserMapper.updateById(queryEntity);
+    }
+
+    @Override
+    public void enable(Long id) {
+        SysUserEntity queryEntity = sysUserMapper.selectById(id);
+        // 判断数据是否存在
+        if (queryEntity == null) {
+            throw new CustomException(ErrorCode.E1001);
+        }
+        queryEntity.setStatus(1);
+        sysUserMapper.updateById(queryEntity);
+    }
+
+    @Override
     public Page<Map<String, Object>> getPageList(long pageNo, long pageSize) {
         return sysUserMapper.getPageList(new Page<>(pageNo, pageSize));
     }

@@ -35,6 +35,20 @@ public interface UserService {
     void update(Long id, ModifyUserParam param);
 
     /**
+     * 禁用用户
+     *
+     * @param id 用户id
+     */
+    void disable(Long id);
+
+    /**
+     * 启用用户
+     *
+     * @param id 用户id
+     */
+    void enable(Long id);
+
+    /**
      * 获取分页列表
      *
      * @param pageNo   页码

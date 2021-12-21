@@ -82,6 +82,24 @@ public class UserController {
     }
 
     /**
+     * 禁用用户
+     */
+    @PutMapping("/disable")
+    public CommonResult<?> disable(@RequestParam("id") @NotNull Long id) {
+        userService.disable(id);
+        return CommonResult.success();
+    }
+
+    /**
+     * 启用用户
+     */
+    @PutMapping("/enable")
+    public CommonResult<?> enable(@RequestParam("id") @NotNull Long id) {
+        userService.enable(id);
+        return CommonResult.success();
+    }
+
+    /**
      * 查询用户权限
      */
     @GetMapping("/findPermissions")

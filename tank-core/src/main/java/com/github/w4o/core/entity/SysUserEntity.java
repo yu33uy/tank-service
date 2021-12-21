@@ -56,7 +56,7 @@ public class SysUserEntity extends BaseSysEntity {
     /**
      * 状态 0：禁用 1：正常
      */
-    private Boolean status;
+    private Integer status;
 
     /**
      * 机构ID

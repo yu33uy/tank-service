@@ -1,6 +1,7 @@
 package com.github.w4o.manage.controller;
 
 import com.github.w4o.core.base.CommonResult;
+import com.github.w4o.manage.dto.param.AddMenuParam;
 import com.github.w4o.manage.service.MenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -8,10 +9,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author frank
@@ -32,16 +33,17 @@ public class MenuController {
      */
     @PostMapping("/add")
     @ApiOperation(value = "添加菜单")
-    public CommonResult<?> add() {
+    public CommonResult<?> add(@RequestBody @Valid AddMenuParam param) {
+        menuService.add(param);
         return CommonResult.success();
     }
 
     /**
      * 删除菜单
      */
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     @ApiOperation(value = "删除菜单")
-    public CommonResult<?> delete() {
+    public CommonResult<?> delete(@RequestParam("id") @NotNull Long id) {
         return CommonResult.success();
     }
 
