@@ -24,4 +24,8 @@ public class LoginLogServiceImpl implements LoginLogService {
         return sysLoginLogMapper.getPageList(new Page<>(pageNo, pageSize));
     }
 
+    @Override
+    public void clean() {
+        sysLoginLogMapper.clean();
+    }
 }

@@ -1,8 +1,8 @@
 package com.github.w4o.manage.controller;
 
 import com.github.w4o.core.base.CommonResult;
-import com.github.w4o.manage.dto.param.AddUserParam;
-import com.github.w4o.manage.dto.param.ModifyUserParam;
+import com.github.w4o.manage.dto.param.user.AddUserParam;
+import com.github.w4o.manage.dto.param.user.ModifyUserParam;
 import com.github.w4o.manage.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

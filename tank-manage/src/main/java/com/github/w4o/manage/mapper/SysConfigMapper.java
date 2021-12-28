@@ -3,6 +3,7 @@ package com.github.w4o.manage.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.w4o.core.entity.SysConfigEntity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Map;
 
@@ -24,4 +25,10 @@ public interface SysConfigMapper extends BaseMapper<SysConfigEntity> {
      */
     Page<Map<String, Object>> getPageList(Page<Map<String, Object>> page);
 
+    /**
+     * 根据标签查询
+     * @param label 标签
+     * @return 配置信息
+     */
+    SysConfigEntity getByLabel(@Param("label") String label);
 }

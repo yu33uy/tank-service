@@ -41,9 +41,10 @@ public class LoginLogController {
     /**
      * 清除登录日志
      */
-    @DeleteMapping("/clear")
+    @DeleteMapping("/clean")
     @ApiOperation(value = "清除登录日志")
-    public CommonResult<?> clear() {
+    public CommonResult<?> clean() {
+        loginLogService.clean();
         return CommonResult.success();
     }
 

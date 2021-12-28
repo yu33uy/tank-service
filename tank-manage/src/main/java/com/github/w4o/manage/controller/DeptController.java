@@ -1,8 +1,8 @@
 package com.github.w4o.manage.controller;
 
 import com.github.w4o.core.base.CommonResult;
-import com.github.w4o.manage.dto.param.AddDeptParam;
-import com.github.w4o.manage.dto.param.ModifyDeptParam;
+import com.github.w4o.manage.dto.param.dept.AddDeptParam;
+import com.github.w4o.manage.dto.param.dept.ModifyDeptParam;
 import com.github.w4o.manage.service.DeptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

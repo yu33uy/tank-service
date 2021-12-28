@@ -1,7 +1,7 @@
 package com.github.w4o.manage.service;
 
-import com.github.w4o.manage.dto.param.AddDeptParam;
-import com.github.w4o.manage.dto.param.ModifyDeptParam;
+import com.github.w4o.manage.dto.param.dept.AddDeptParam;
+import com.github.w4o.manage.dto.param.dept.ModifyDeptParam;
 
 import java.util.List;
 

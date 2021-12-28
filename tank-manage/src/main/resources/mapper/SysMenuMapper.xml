@@ -2,4 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.github.w4o.manage.mapper.SysMenuMapper">
 
+    <select id = "getNavMenu" resultType="com.github.w4o.manage.dto.MenuDto">
+        select id,
+               menu_name as menuName,
+               parent_id as parentId,
+               url as route,
+               perms as perms,
+               icon,
+               sort
+        from sys_menu
+        where deleted = 0
+        and type = 1
+    </select>
+
+    <select id="getAllList" resultType="com.github.w4o.manage.dto.MenuDto">
+        select id,
+               menu_name as menuName,
+               parent_id as parentId,
+               url as route,
+               perms as perms,
+               icon,
+               sort
+        from sys_menu
+        where deleted = 0
+    </select>
 </mapper>

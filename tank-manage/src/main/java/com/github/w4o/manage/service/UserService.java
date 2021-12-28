@@ -1,8 +1,8 @@
 package com.github.w4o.manage.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.github.w4o.manage.dto.param.AddUserParam;
-import com.github.w4o.manage.dto.param.ModifyUserParam;
+import com.github.w4o.manage.dto.param.user.AddUserParam;
+import com.github.w4o.manage.dto.param.user.ModifyUserParam;
 
 import java.util.Map;
 

@@ -7,4 +7,8 @@
         from sys_log
     </select>
 
+    <update id="clean">
+        update sys_log set deleted = 1 where deleted = 0
+    </update>
+
 </mapper>

@@ -1,4 +1,4 @@
-package com.github.w4o.manage.dto.param;
+package com.github.w4o.manage.dto.param.config;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,14 +6,15 @@ import lombok.Data;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author frank
  * @date 2021/12/17
  */
 @Data
-@ApiModel("添加字典请求参数")
-public class AddDictParam {
+@ApiModel("添加配置请求参数")
+public class AddConfigParam {
 
     /**
      * 数据值
@@ -45,6 +46,7 @@ public class AddDictParam {
      * 排序
      */
     @ApiModelProperty("排序")
+    @NotNull
     private Integer sort = NumberUtils.INTEGER_ZERO;
 
     /**

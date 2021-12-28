@@ -1,7 +1,7 @@
 package com.github.w4o.manage.controller;
 
 import com.github.w4o.core.base.CommonResult;
-import com.github.w4o.manage.dto.param.AddMenuParam;
+import com.github.w4o.manage.dto.param.menu.AddMenuParam;
 import com.github.w4o.manage.service.MenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,6 +44,7 @@ public class MenuController {
     @DeleteMapping("/delete")
     @ApiOperation(value = "删除菜单")
     public CommonResult<?> delete(@RequestParam("id") @NotNull Long id) {
+        menuService.delete(id);
         return CommonResult.success();
     }
 

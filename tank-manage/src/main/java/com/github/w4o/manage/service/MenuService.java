@@ -1,6 +1,9 @@
 package com.github.w4o.manage.service;
 
-import com.github.w4o.manage.dto.param.AddMenuParam;
+import com.github.w4o.manage.dto.param.menu.AddMenuParam;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author frank
@@ -21,4 +24,16 @@ public interface MenuService {
      * @param id 菜单Id
      */
     void delete(long id);
+
+    /**
+     * 导航菜单树
+     * @return
+     */
+    List<?> findNavTree();
+
+    /**
+     * 菜单树
+     * @return
+     */
+    List<?> findMenuTree();
 }

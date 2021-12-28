@@ -2,8 +2,11 @@ package com.github.w4o.manage.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.w4o.core.entity.SysConfigEntity;
 import com.github.w4o.core.entity.SysDictEntity;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,4 +26,11 @@ public interface SysDictMapper extends BaseMapper<SysDictEntity> {
      * @return 分页列表
      */
     Page<Map<String, Object>> getPageList(Page<Map<String, Object>> page);
+
+    /**
+     * 根据标签查询
+     * @param label 标签
+     * @return 字典信息
+     */
+    List<SysDictEntity> getByLabel(@Param("label") String label);
 }
