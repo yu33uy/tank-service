@@ -2,9 +2,11 @@ package com.github.w4o.core.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.w4o.core.base.BaseSysEntity;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serial;
 
 /**
@@ -26,11 +28,14 @@ public class SysRoleEntity extends BaseSysEntity {
     /**
      * 角色名
      */
+    @ApiModelProperty("角色名称")
+    @NotBlank
     private String roleName;
 
     /**
      * 备注
      */
+    @ApiModelProperty("备注")
     private String remark;
 
 

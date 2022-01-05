@@ -19,4 +19,8 @@ public interface LoginLogService {
      */
     Page<Map<String, Object>> getPageList(long pageNo, long pageSize);
 
+    /**
+     * 清空日志
+     */
+    void clean();
 }

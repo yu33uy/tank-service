@@ -1,6 +1,8 @@
 package com.github.w4o.manage.controller;
 
 import com.github.w4o.core.base.CommonResult;
+import com.github.w4o.manage.dto.param.dict.AddDictParam;
+import com.github.w4o.manage.dto.param.config.ModifyConfigParam;
 import com.github.w4o.manage.service.DictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -32,8 +36,9 @@ public class DictController {
      * 添加字典
      */
     @PostMapping("/add")
-    @ApiOperation(value = "添加字典", notes = "")
-    public CommonResult<?> add() {
+    @ApiOperation(value = "添加字典")
+    public CommonResult<?> add(@RequestBody @Valid AddDictParam param) {
+        dictService.add(param);
         return CommonResult.success();
     }
 
@@ -42,7 +47,9 @@ public class DictController {
      */
     @PostMapping("/modify")
     @ApiOperation(value = "修改字典信息")
-    public CommonResult<?> modify() {
+    public CommonResult<?> modify(@RequestParam("id") @NotNull Long id,
+                                  @RequestBody @Valid ModifyConfigParam param) {
+        dictService.update(id, param);
         return CommonResult.success();
     }
 
@@ -51,7 +58,8 @@ public class DictController {
      */
     @PostMapping("/delete")
     @ApiOperation(value = "删除字典")
-    public CommonResult<?> delete() {
+    public CommonResult<?> delete(@RequestParam("id") @NotNull Long id) {
+        dictService.delete(id);
         return CommonResult.success();
     }
 
@@ -70,8 +78,8 @@ public class DictController {
      */
     @GetMapping("/findByLabel")
     @ApiOperation(value = "根据标签查询")
-    public CommonResult<?> findByLabel() {
-        return CommonResult.success();
+    public CommonResult<?> findByLabel(@RequestParam("label") @NotBlank String label) {
+        return CommonResult.success(dictService.findByLabel(label));
     }
 
 }

@@ -3,6 +3,7 @@ package com.github.w4o.manage.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.w4o.core.entity.SysRoleEntity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Map;
 
@@ -23,4 +24,5 @@ public interface SysRoleMapper extends BaseMapper<SysRoleEntity> {
      * @return 分页列表
      */
     Page<Map<String, Object>> getPageList(Page<Map<String, Object>> page);
+
 }

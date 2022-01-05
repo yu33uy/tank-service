@@ -12,10 +12,13 @@ import javax.validation.constraints.NotNull;
  * @author frank
  */
 @Component
-@ConfigurationProperties(prefix = "tank.manage")
+@ConfigurationProperties(prefix = "tank")
 @Data
 @Validated
 public class TankConfig {
+    @NotNull
+    private String version;
+
     @NotNull
     private Jwt jwt;
 

@@ -1,6 +1,8 @@
 package com.github.w4o.manage.controller;
 
 import com.github.w4o.core.base.CommonResult;
+import com.github.w4o.manage.dto.param.user.AddUserParam;
+import com.github.w4o.manage.dto.param.user.ModifyUserParam;
 import com.github.w4o.manage.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -32,26 +35,30 @@ public class UserController {
      * 添加用户
      */
     @PostMapping("/add")
-    @ApiOperation(value = "添加用户", notes = "")
-    public CommonResult<?> add() {
+    @ApiOperation(value = "添加用户")
+    public CommonResult<?> add(@RequestBody @Valid AddUserParam param) {
+        userService.add(param);
         return CommonResult.success();
     }
 
     /**
      * 修改用户信息
      */
-    @PostMapping("/modify")
+    @PutMapping("/modify")
     @ApiOperation(value = "修改用户")
-    public CommonResult<?> modify() {
+    public CommonResult<?> modify(@RequestParam("id") @NotNull Long id,
+                                  @RequestBody @Valid ModifyUserParam param) {
+        userService.update(id, param);
         return CommonResult.success();
     }
 
     /**
      * 删除用户
      */
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     @ApiOperation(value = "删除用户")
-    public CommonResult<?> delete() {
+    public CommonResult<?> delete(@RequestParam("id") @NotNull Long id) {
+        userService.delete(id);
         return CommonResult.success();
     }
 
@@ -71,6 +78,24 @@ public class UserController {
     @GetMapping("/info")
     @ApiOperation(value = "用户详细信息")
     public CommonResult<?> info() {
+        return CommonResult.success();
+    }
+
+    /**
+     * 禁用用户
+     */
+    @PutMapping("/disable")
+    public CommonResult<?> disable(@RequestParam("id") @NotNull Long id) {
+        userService.disable(id);
+        return CommonResult.success();
+    }
+
+    /**
+     * 启用用户
+     */
+    @PutMapping("/enable")
+    public CommonResult<?> enable(@RequestParam("id") @NotNull Long id) {
+        userService.enable(id);
         return CommonResult.success();
     }
 

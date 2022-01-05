@@ -1,8 +1,9 @@
 package com.github.w4o.manage.controller;
 
 import com.github.w4o.core.base.CommonResult;
+import com.github.w4o.manage.dto.param.config.ModifyConfigParam;
 import com.github.w4o.manage.service.ConfigService;
-import com.github.w4o.manage.dto.param.AddConfigParam;
+import com.github.w4o.manage.dto.param.config.AddConfigParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -43,18 +45,21 @@ public class ConfigController {
     /**
      * 修改配置信息
      */
-    @PostMapping("/modify")
+    @PutMapping("/modify")
     @ApiOperation(value = "修改配置信息")
-    public CommonResult<?> modify() {
+    public CommonResult<?> modify(@RequestParam("id") @NotNull Long id,
+                                  @RequestBody @Valid ModifyConfigParam param) {
+        configService.update(id, param);
         return CommonResult.success();
     }
 
     /**
      * 删除配置
      */
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     @ApiOperation(value = "删除配置")
-    public CommonResult<?> delete() {
+    public CommonResult<?> delete(@RequestParam("id") @NotNull Long id) {
+        configService.delete(id);
         return CommonResult.success();
     }
 
@@ -73,8 +78,8 @@ public class ConfigController {
      */
     @GetMapping("/findByLabel")
     @ApiOperation(value = "根据标签查询")
-    public CommonResult<?> findByLabel() {
-        return CommonResult.success();
+    public CommonResult<?> findByLabel(@RequestParam("label") @NotBlank String label) {
+        return CommonResult.success(configService.findByLabel(label));
     }
 
 }

@@ -29,6 +29,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (querySysUser == null) {
             throw new UsernameNotFoundException("username:" + userName + "不存在");
         }
+        if (querySysUser.getStatus() != 1) {
+            throw new UsernameNotFoundException("username:" + userName + "已被禁用");
+        }
         return new UserInfo(querySysUser.getId(), userName, querySysUser.getPassword(), new ArrayList<>());
     }
 

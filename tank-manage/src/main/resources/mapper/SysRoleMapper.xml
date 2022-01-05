@@ -3,8 +3,12 @@
 <mapper namespace="com.github.w4o.manage.mapper.SysRoleMapper">
 
     <select id="getPageList" resultType="map">
-        select *
+        select id,
+               role_name as roleName,
+               remark,
+               create_time as createTime,
+                last_update_time as lastUpdateTime
         from sys_role
+        where deleted = 0
     </select>
-
 </mapper>

@@ -1,9 +1,14 @@
 package com.github.w4o.manage.common.util;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.JWTVerifier;
+import com.github.w4o.core.exception.CustomException;
+import com.github.w4o.manage.common.ErrorCode;
 import com.github.w4o.manage.common.config.TankConfig;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -27,61 +32,51 @@ public class JwtUtils {
     private static final String CLAIM_KEY_USERNAME = "sub";
 
     public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>(16);
-        claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
 
         // expire time
         Calendar nowTime = Calendar.getInstance();
         nowTime.add(Calendar.SECOND, tankConfig.getJwt().getExpire());
         Date expiresDate = nowTime.getTime();
 
-        return Jwts.builder()
-                .setClaims(claims)
-                .setExpiration(expiresDate)
-                .signWith(SignatureAlgorithm.HS512, tankConfig.getJwt().getSecret())
-                .compact();
+        Date iatDate = new Date();
+
+        // header Map
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("alg", "HS256");
+        map.put("typ", "JWT");
+
+        return JWT.create()
+                .withHeader(map)
+                .withIssuedAt(iatDate)
+                .withExpiresAt(expiresDate)
+                .withClaim(CLAIM_KEY_USERNAME, userDetails.getUsername())
+                .sign(Algorithm.HMAC256(tankConfig.getJwt().getSecret()));
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         User user = (User) userDetails;
         String username = getUsernameFromToken(token);
-        return (username.equals(user.getUsername()) && !isTokenExpired(token));
-    }
-
-    public Boolean isTokenExpired(String token) {
-        Date expiration = getExpirationDateFromToken(token);
-        return expiration.before(new Date());
+        return (username.equals(user.getUsername()));
     }
 
     public String getUsernameFromToken(String token) {
-        return getClaimsFromToken(token).getSubject();
+        return getClaimsFromToken(token).get(CLAIM_KEY_USERNAME).asString();
     }
 
-    public Date getExpirationDateFromToken(String token) {
-        return getClaimsFromToken(token).getExpiration();
-    }
 
-    public String refreshToken(String token) {
-        Map<String, Object> claims = new HashMap<>(1);
-        claims.put(CLAIM_KEY_USERNAME, getUsernameFromToken(token));
-
-        // expire time
-        Calendar nowTime = Calendar.getInstance();
-        nowTime.add(Calendar.SECOND, tankConfig.getJwt().getExpire());
-        Date expiresDate = nowTime.getTime();
-
-        return Jwts.builder()
-                .setClaims(claims)
-                .setExpiration(expiresDate)
-                .signWith(SignatureAlgorithm.HS512, tankConfig.getJwt().getSecret())
-                .compact();
-    }
-
-    private Claims getClaimsFromToken(String token) {
+    private Map<String, Claim> getClaimsFromToken(String token) {
         String realToken = token.replace("Bearer ", "");
-        return Jwts.parser()
-                .setSigningKey(tankConfig.getJwt().getSecret())
-                .parseClaimsJws(realToken)
-                .getBody();
+
+        DecodedJWT jwt;
+        try {
+            JWTVerifier verifier = JWT.require(Algorithm.HMAC256(tankConfig.getJwt().getSecret())).build();
+            jwt = verifier.verify(realToken);
+        } catch (TokenExpiredException e) {
+            throw new CustomException(ErrorCode.E402);
+        } catch (Exception e) {
+            // token 校验失败, 抛出Token验证非法异常
+            throw new CustomException(ErrorCode.E401);
+        }
+        return jwt.getClaims();
     }
 }

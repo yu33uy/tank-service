@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8300
 spring:
   datasource:
     druid:
@@ -16,7 +16,6 @@ logging:
     com.github.w4o: debug
 
 tank:
-  manage:
-    jwt:
-      secret: xxxx
-      expire: 7200
+  jwt:
+    secret: xxxx
+    expire: 7200

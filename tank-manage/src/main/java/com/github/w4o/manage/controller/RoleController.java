@@ -1,15 +1,20 @@
 package com.github.w4o.manage.controller;
 
 import com.github.w4o.core.base.CommonResult;
+import com.github.w4o.manage.dto.param.role.AddRoleMenuParam;
+import com.github.w4o.manage.dto.param.role.AddRoleParam;
+import com.github.w4o.manage.dto.param.role.ModifyRoleParam;
 import com.github.w4o.manage.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -32,26 +37,30 @@ public class RoleController {
      * 添加角色
      */
     @PostMapping("/add")
-    @ApiOperation(value = "添加角色", notes = "")
-    public CommonResult<?> add() {
+    @ApiOperation(value = "添加角色")
+    public CommonResult<?> add(@RequestBody @Valid AddRoleParam param) {
+        roleService.add(param);
         return CommonResult.success();
     }
 
     /**
      * 修改角色信息
      */
-    @PostMapping("/modify")
+    @PutMapping("/modify")
     @ApiOperation(value = "修改角色")
-    public CommonResult<?> modify() {
+    public CommonResult<?> modify(@RequestParam("id") @NotNull Long id,
+                                  @RequestBody @Valid ModifyRoleParam param) {
+        roleService.update(id, param);
         return CommonResult.success();
     }
 
     /**
      * 删除角色
      */
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     @ApiOperation(value = "删除角色")
-    public CommonResult<?> delete() {
+    public CommonResult<?> delete(@RequestParam("id") @NotNull Long id) {
+        roleService.delete(id);
         return CommonResult.success();
     }
 
@@ -71,7 +80,7 @@ public class RoleController {
     @GetMapping("/findAll")
     @ApiOperation(value = "查询全部角色")
     public CommonResult<?> findAll() {
-        return CommonResult.success();
+        return CommonResult.success(roleService.getAll());
     }
 
     /**
@@ -79,8 +88,8 @@ public class RoleController {
      */
     @GetMapping("/findRoleMenu")
     @ApiOperation(value = "查询角色菜单")
-    public CommonResult<?> findRoleMenu() {
-        return CommonResult.success();
+    public CommonResult<?> findRoleMenu(@RequestParam("roleId") @NotNull Long roleId) {
+        return CommonResult.success(roleService.getRoleMenu(roleId));
     }
 
     /**
@@ -88,7 +97,8 @@ public class RoleController {
      */
     @PostMapping("/saveRoleMenu")
     @ApiOperation(value = "保存角色菜单")
-    public CommonResult<?> saveRoleMenu() {
+    public CommonResult<?> saveRoleMenu(@RequestBody @Valid AddRoleMenuParam param) {
+        roleService.addRoleMenu(param);
         return CommonResult.success();
     }
 

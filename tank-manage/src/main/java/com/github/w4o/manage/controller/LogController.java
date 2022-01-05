@@ -35,16 +35,16 @@ public class LogController {
     @ApiOperation(value = "分页查询")
     public CommonResult<?> findPage(@RequestParam("pageNo") @NotNull @Min(1) Long pageNo,
                                     @RequestParam("pageSize") @NotNull @Max(100) Long pageSize) {
-
-        return CommonResult.success();
+        return CommonResult.success(logService.getPageList(pageNo, pageSize));
     }
 
     /**
      * 清除操作日志
      */
-    @DeleteMapping("/clear")
+    @DeleteMapping("/clean")
     @ApiOperation(value = "清除操作日志")
-    public CommonResult<?> clear() {
+    public CommonResult<?> clean() {
+        logService.clean();
         return CommonResult.success();
     }
 

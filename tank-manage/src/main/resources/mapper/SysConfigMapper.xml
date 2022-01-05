@@ -6,4 +6,8 @@
         select *
         from sys_config
     </select>
+
+    <select id ="getByLabel" resultType="com.github.w4o.core.entity.SysConfigEntity">
+        select * from sys_config where deleted = 0 and label = ${label}
+    </select>
 </mapper>

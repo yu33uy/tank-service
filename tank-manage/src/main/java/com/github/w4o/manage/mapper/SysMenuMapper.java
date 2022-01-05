@@ -2,6 +2,9 @@ package com.github.w4o.manage.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.w4o.core.entity.SysMenuEntity;
+import com.github.w4o.manage.dto.MenuDto;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,7 @@ import com.github.w4o.core.entity.SysMenuEntity;
  */
 public interface SysMenuMapper extends BaseMapper<SysMenuEntity> {
 
+    List<MenuDto> getNavMenu();
+
+    List<MenuDto> getAllList();
 }

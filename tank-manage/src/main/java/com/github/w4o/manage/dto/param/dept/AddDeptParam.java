@@ -1,4 +1,4 @@
-package com.github.w4o.manage.dto.param;
+package com.github.w4o.manage.dto.param.dept;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

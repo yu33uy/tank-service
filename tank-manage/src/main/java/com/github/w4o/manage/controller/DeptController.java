@@ -1,8 +1,9 @@
 package com.github.w4o.manage.controller;
 
 import com.github.w4o.core.base.CommonResult;
+import com.github.w4o.manage.dto.param.dept.AddDeptParam;
+import com.github.w4o.manage.dto.param.dept.ModifyDeptParam;
 import com.github.w4o.manage.service.DeptService;
-import com.github.w4o.manage.dto.param.AddDeptParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author frank
@@ -40,18 +42,21 @@ public class DeptController {
     /**
      * 修改机构信息
      */
-    @PostMapping("/modify")
+    @PutMapping("/modify")
     @ApiOperation(value = "修改机构")
-    public CommonResult<?> modify() {
+    public CommonResult<?> modify(@RequestParam("id") @NotNull Long id,
+                                  @RequestBody @Valid ModifyDeptParam param) {
+        deptService.update(id, param);
         return CommonResult.success();
     }
 
     /**
      * 删除机构
      */
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     @ApiOperation(value = "删除机构")
-    public CommonResult<?> delete() {
+    public CommonResult<?> delete(@RequestParam("id") @NotNull Long id) {
+        deptService.delete(id);
         return CommonResult.success();
     }
 
@@ -61,6 +66,6 @@ public class DeptController {
     @GetMapping("/findTree")
     @ApiOperation(value = "查询机构树")
     public CommonResult<?> findTree() {
-        return CommonResult.success();
+        return CommonResult.success(deptService.findTree());
     }
 }

@@ -5,4 +5,8 @@
         select *
         from sys_dict
     </select>
+
+    <select id="getByLabel" resultType="com.github.w4o.core.entity.SysDictEntity">
+        select * from sys_dict where deleted = 0 and label = ${label}
+    </select>
 </mapper>

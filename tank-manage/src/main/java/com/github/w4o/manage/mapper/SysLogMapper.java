@@ -24,4 +24,9 @@ public interface SysLogMapper extends BaseMapper<SysLogEntity> {
      */
     Page<Map<String, Object>> getPageList(Page<Map<String, Object>> page);
 
+    /**
+     * 清空日志
+     */
+    void clean();
+
 }

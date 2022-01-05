@@ -1,4 +1,4 @@
-package com.github.w4o.manage.dto.param;
+package com.github.w4o.manage.dto.param.menu;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,8 +13,8 @@ import javax.validation.constraints.NotNull;
  * @date 2021/12/17
  */
 @Data
-@ApiModel("添加菜单请求参数")
-public class AddMenuParam {
+@ApiModel("添加/修改菜单请求参数")
+public class MenuParam {
     /**
      * 菜单名称
      */
@@ -26,7 +26,7 @@ public class AddMenuParam {
      * 父菜单ID，一级菜单为0
      */
     @ApiModelProperty("父菜单ID")
-    @NotBlank
+    @NotNull
     private Long parentId = NumberUtils.LONG_ZERO;
 
     /**
