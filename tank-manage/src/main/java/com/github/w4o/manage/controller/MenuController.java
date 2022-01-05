@@ -1,7 +1,7 @@
 package com.github.w4o.manage.controller;
 
 import com.github.w4o.core.base.CommonResult;
-import com.github.w4o.manage.dto.param.menu.AddMenuParam;
+import com.github.w4o.manage.dto.param.menu.MenuParam;
 import com.github.w4o.manage.service.MenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,8 +33,19 @@ public class MenuController {
      */
     @PostMapping("/add")
     @ApiOperation(value = "添加菜单")
-    public CommonResult<?> add(@RequestBody @Valid AddMenuParam param) {
+    public CommonResult<?> add(@RequestBody @Valid MenuParam param) {
         menuService.add(param);
+        return CommonResult.success();
+    }
+
+    /**
+     * 修改菜单
+     */
+    @PutMapping("/modify")
+    @ApiOperation("修改菜单")
+    public CommonResult<?> modify(@RequestParam("id") @NotNull Long id,
+            @RequestBody @Valid MenuParam param) {
+        menuService.update(id, param);
         return CommonResult.success();
     }
 
@@ -54,7 +65,7 @@ public class MenuController {
     @GetMapping("/findNavTree")
     @ApiOperation(value = "查询导航菜单树")
     public CommonResult<?> findNavTree() {
-        return CommonResult.success();
+        return CommonResult.success(menuService.findNavTree());
     }
 
     /**
@@ -63,7 +74,7 @@ public class MenuController {
     @GetMapping("/findMenuTree")
     @ApiOperation(value = "查询菜单树")
     public CommonResult<?> findMenuTree() {
-        return CommonResult.success();
+        return CommonResult.success(menuService.findMenuTree());
     }
 
 

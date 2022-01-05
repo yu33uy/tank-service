@@ -1,9 +1,8 @@
 package com.github.w4o.manage.service;
 
-import com.github.w4o.manage.dto.param.menu.AddMenuParam;
+import com.github.w4o.manage.dto.param.menu.MenuParam;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author frank
@@ -16,7 +15,13 @@ public interface MenuService {
      *
      * @param param 请求参数
      */
-    void add(AddMenuParam param);
+    void add(MenuParam param);
+
+    /**
+     * 修改菜单
+     * @param param 请求参数
+     */
+    void update (long id, MenuParam param);
 
     /**
      * 删除菜单

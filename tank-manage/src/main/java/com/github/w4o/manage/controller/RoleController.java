@@ -88,7 +88,7 @@ public class RoleController {
      */
     @GetMapping("/findRoleMenu")
     @ApiOperation(value = "查询角色菜单")
-    public CommonResult<?> findRoleMenu(@RequestParam("roleId") Long roleId) {
+    public CommonResult<?> findRoleMenu(@RequestParam("roleId") @NotNull Long roleId) {
         return CommonResult.success(roleService.getRoleMenu(roleId));
     }
 
@@ -97,7 +97,7 @@ public class RoleController {
      */
     @PostMapping("/saveRoleMenu")
     @ApiOperation(value = "保存角色菜单")
-    public CommonResult<?> saveRoleMenu(AddRoleMenuParam param) {
+    public CommonResult<?> saveRoleMenu(@RequestBody @Valid AddRoleMenuParam param) {
         roleService.addRoleMenu(param);
         return CommonResult.success();
     }

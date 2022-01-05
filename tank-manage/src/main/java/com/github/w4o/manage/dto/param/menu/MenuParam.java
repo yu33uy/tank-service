@@ -13,8 +13,8 @@ import javax.validation.constraints.NotNull;
  * @date 2021/12/17
  */
 @Data
-@ApiModel("添加菜单请求参数")
-public class AddMenuParam {
+@ApiModel("添加/修改菜单请求参数")
+public class MenuParam {
     /**
      * 菜单名称
      */
